@@ -9,7 +9,7 @@ class NaiveBayesClassifier:
         self.classes=[]
 
     def train(self, training_set=None):
-
+        return None
     def classify(self, example):
         max1=0
         max_class=self.classes[0]
@@ -30,19 +30,19 @@ class NaiveBayesClassifier:
             s+=prod1*self.class_liklihood(k)        
         return s
 
-    def max_lik_class_given_example(self, example, class):
+    def max_lik_class_given_example(self, example, class1):
         num=1
         for xi in example:
-            num*=self.max_likelihood_feature_given_y(xi, class)
-        return num*self.class_likelihood(class)/self.lik_example(example)
+            num*=self.max_likelihood_feature_given_y(xi, class1)
+        return num*self.class_likelihood(class1)/self.lik_example(example)
     
-    def class_likelihood(self,class):
-        return self.training_data.values.count(class)/len(self.training_data.values)
-    def max_likelihood_feature_given_y(self,feature , class):
+    def class_likelihood(self,class1):
+        return self.training_data.values.count(class1)/len(self.training_data.values)
+    def max_likelihood_feature_given_y(self,feature , class1):
         num=0
         den=0
         for item in self.training_data.pairs:
-            if item[1]==class:
+            if item[1]==class1:
                 den+=1
                 if item[0][feature]==1:
                     num +=1    
