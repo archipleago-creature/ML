@@ -6,7 +6,10 @@ import numpy as np
 import math 
 import copy
 class regressionLearner(Learner.Learner):
-    
+    def __init__(self,training_set=None, method=None):
+        Learner.Learner.__init__(self, training_set, method)
+        self.theta=None
+
     def linear_regression(self):
         alpha=0.01
         m=len(self.training_set.examples)
@@ -20,14 +23,15 @@ class regressionLearner(Learner.Learner):
         
     def linear_hypothesis(self,x, theta):
         return theta*x.T
-
+    ###TO DO weighted linear regression, softmax, preceptron
     def log_hypothesis(self, x, theta):
         return 1/(np.exp(-1*(theta*x.T)))
     def diffJ_log(self,m, theta,test_points, test_values):
         sum=0
+        
         for i in(1, len(test_points)-1):
             #print i
-            sum += ( self.log_hypothesis(test_points[i], theta) - test_values[i])* test_points[i]
+            sum += ( -1.0*self.log_hypothesis(test_points[i], theta) + test_values[i])* test_points[i]
           
         return sum
   
@@ -54,7 +58,7 @@ class regressionLearner(Learner.Learner):
             print theta
             counttest+=1
             temp=theta
-            theta=theta-alpha*self.diffJ_log(m,theta, test_points, test_values)
+            theta=theta + alpha*self.diffJ_log(m,theta, test_points, test_values)
             print str(theta)
             error=np.linalg.norm(theta-temp)
         print counttest                 
