@@ -15,9 +15,10 @@ class FreqTextDict:
             else:
                 self.dic[t]=1
          
-    def populate_from_dir(self, path):
-        for f in glob.glob(os.path.join(path, '*.txt')):
-            self.populate_from_file(f)
+    def populate_from_dirs(self, paths):
+        for path in paths:
+            for f in glob.glob(os.path.join(path, '*.txt')):
+                self.populate_from_file(f)
 
 
     def trim_to_size(self, size):
